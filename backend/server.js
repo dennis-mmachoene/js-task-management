@@ -437,7 +437,6 @@ app.get('/api/challenges', auth, async (req, res) => {
     }
     
     query += ` ORDER BY c.created_at DESC LIMIT ${safeLimit} OFFSET ${offset}`;
-    params.push(parseInt(limit), parseInt(offset));
     
     const [challenges] = await pool.execute(query, params);
     res.json(challenges);
