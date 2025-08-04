@@ -143,3 +143,4 @@ local.settings.json
 *.7z
 *.tar
 *.gz
+.env
