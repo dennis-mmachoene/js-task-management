@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const { pool } = require('../config/db');
+const User = require('../models/User');
 
 const auth = async (req, res, next) => {
   try {
@@ -8,19 +8,16 @@ const auth = async (req, res, next) => {
     if (!token) {
       return res.status(401).json({ error: 'Access denied. No token provided.' });
     }
-
+    
     const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key');
     
-    const [users] = await pool.execute(
-      'SELECT id, email, name, role FROM users WHERE id = ?',
-      [decoded.userId]
-    );
-
-    if (!users.length) {
+    const user = await User.findById(decoded.userId).select('-password');
+    
+    if (!user) {
       return res.status(401).json({ error: 'Invalid token.' });
     }
-
-    req.user = users[0];
+    
+    req.user = user;
     next();
   } catch (error) {
     res.status(401).json({ error: 'Invalid token.' });
