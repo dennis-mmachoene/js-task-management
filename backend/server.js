@@ -22,7 +22,7 @@ const app = express();
 // Security middleware
 app.use(helmet());
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+  origin: 'https://task-management-app-pigz.onrender.com',
   credentials: true
 }));
 
