@@ -28,7 +28,7 @@ const AuthProvider = ({ children }) => {
 
   const fetchUserData = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/tasks', {
+      const response = await fetch('https://task-management-cmad.onrender.com/api/tasks', {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (response.ok) {
@@ -118,7 +118,7 @@ const useToast = () => useContext(ToastContext);
 
 // API Service
 class ApiService {
-  static baseURL = 'http://localhost:5000/api';
+  static baseURL = 'https://task-management-cmad.onrender.com/api';
 
   static async request(endpoint, options = {}) {
     const token = localStorage.getItem('token');
